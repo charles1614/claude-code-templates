@@ -6,9 +6,18 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version to publish (e.g., patch, minor, major, or specific version like 1.0.0)'
-        required: true
-        default: 'patch'
+        description: 'Version to publish (patch, minor, major, or specific version like 1.1.0)'
+        required: false
+        default: 'auto'
+      action:
+        description: 'Publish action: publish, version-bump-only, or dry-run'
+        required: false
+        default: 'publish'
+        type: choice
+        options:
+          - 'publish'
+          - 'version-bump-only'
+          - 'dry-run'
       dry_run:
         description: 'Run publish in dry-run mode (no actual publishing)'
         required: false
@@ -59,8 +68,84 @@ jobs:
           npm pack --dry-run
           echo "✅ Package validation passed"
 
+      - name: Version Management
+        if: ${{ inputs.action != 'dry_run' && inputs.action != 'publish' }}
+        run: |
+          VERSION_TYPE="${{ inputs.version }}"
+          if [ "$VERSION_TYPE" = "auto" ]; then
+            COMMIT_MSG=$(git log --format=%s -n 1 HEAD)
+            if echo "$COMMIT_MSG" | grep -i "major\|breaking"; then
+              VERSION_TYPE="major"
+            elif echo "$COMMIT_MSG" | grep -i "minor\|feature\|add\|new"; then
+              VERSION_TYPE="minor"
+            else
+              VERSION_TYPE="patch"
+            fi
+            echo "🔍 Auto-detected version bump: $VERSION_TYPE"
+          fi
+
+          if [ "$VERSION_TYPE" != "none" ]; then
+            echo "📦 Bumping version: $VERSION_TYPE"
+            npm version "$VERSION_TYPE" --no-git-tag-version
+            NEW_VERSION=$(node -p "require('./package.json').version")
+            echo "✅ New version: $NEW_VERSION"
+            echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
+          fi
+
+      - name: Commit Version Changes
+        if: ${{ inputs.action != 'dry-run' && inputs.action != 'publish' }}
+        run: |
+          if [ -n "${{ env.NEW_VERSION }}" ]; then
+            git add package.json package-lock.json
+            git commit -m "Bump version to ${{ env.NEW_VERSION }} [skip ci]"
+          fi
+
+      - name: Create Git Tag
+        if: ${{ inputs.action != 'dry-run' }}
+        run: |
+          if [ -n "${{ env.NEW_VERSION }}" ]; then
+            git tag "v${{ env.NEW_VERSION }}"
+          fi
+
+      - name: Push Changes
+        if: ${{ inputs.action != 'dry-run' }}
+        run: |
+          if [ -n "${{ env.NEW_VERSION }}" ]; then
+            git push origin main
+            git push origin "v${{ env.NEW_VERSION }}"
+          else
+            echo "No version changes to push"
+          fi
+
+      - name: Create GitHub Release
+        if: ${{ inputs.action == 'publish' && inputs.dry_run != 'true' }}
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ env.NEW_VERSION }}
+          release_name: 🚀 Version ${{ env.NEW_VERSION }}
+          body: |
+            ## 🎉 Enhanced Claude Code Templates v${{ env.NEW_VERSION }}
+
+            ### 📦 Package Information
+            - **Package**: @charles1614/claude-code-templates
+            - **Registry**: GitHub Packages
+            - **Trigger**: Manual workflow dispatch
+
+            ### 📦 Installation
+            ```bash
+            npm install @charles1614/claude-code-templates --registry=https://npm.pkg.github.com
+            ```
+
+            ---
+
+            **🤖 Manually published via GitHub Actions**
+            **📋 Based on**: claude-code-templates by Daniel (San) Ávila (MIT License)
+            **✨ Enhanced by**: Charles with additional features and improvements
+
       - name: Publish to GitHub Packages
-        if: ${{ inputs.dry_run != 'true' }}
+        if: ${{ inputs.action == 'publish' && inputs.dry_run != 'true' }}
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -74,15 +159,22 @@ jobs:
 
       - name: Summary
         run: |
-          echo "🎉 Enhanced Package Ready!"
+          echo "🎉 Package Management Complete!"
           echo "========================================"
           echo "Package: @charles1614/claude-code-templates"
           echo "Version: $(node -p "require('./package.json').version")"
+          if [ -n "${{ env.NEW_VERSION }}" ]; then
+            echo "Latest Version: v${{ env.NEW_VERSION }}"
+          fi
           echo "Registry: GitHub Packages"
           echo "Author: $(node -p "require('./package.json').author")"
           echo ""
-          if [ "${{ inputs.dry_run }}" = "true" ]; then
+          if [ "${{ inputs.action }}" = "dry-run" ]; then
             echo "🧪 Mode: Dry-run completed (no actual publishing)"
+          elif [ "${{ inputs.action }}" = "version-bump-only" ]; then
+            echo "📝 Mode: Version bump completed (no publishing)"
+          elif [ "${{ inputs.action }}" = "publish" ]; then
+            echo "🚀 Status: Published to GitHub Packages"
           else
             echo "🚀 Status: Published to GitHub Packages"
           fi
