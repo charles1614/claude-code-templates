@@ -52,12 +52,12 @@
 /nextjs-scaffold my-app --typescript --tailwind --app-router
 
 # 2. Install AI development assistants from Charles repository
-npx @charles/claude-code-templates@latest --agent fullstack-developer
-npx @charles/claude-code-templates@latest --agent backend-architect
+npx github:charles1614/claude-code-templates --agent development-team/fullstack-developer
+npx github:charles1614/claude-code-templates --agent development-team/backend-architect
 
 # 3. Install testing and automation tools
-npx @charles/claude-code-templates@latest --mcp playwright-mcp
-npx @charles/claude-code-templates@latest --mcp neon
+npx github:charles1614/claude-code-templates --mcp playwright-mcp
+npx github:charles1614/claude-code-templates --mcp neon
 
 # 4. Start development with TDD
 cd my-app
@@ -131,7 +131,7 @@ npx create-next-app@latest my-awesome-app --typescript --tailwind --eslint
 cd my-awesome-app
 
 # Install Claude Code Templates from Charles repository
-npx @charles/claude-code-templates@latest --agent fullstack-developer
+npx github:charles1614/claude-code-templates --agent development-team/fullstack-developer
 ```
 
 **What you get:**
@@ -147,16 +147,16 @@ npx @charles/claude-code-templates@latest --agent fullstack-developer
 #### Install AI Development Team
 ```bash
 # Core development agents from Charles repository
-npx @charles/claude-code-templates@latest --agent fullstack-developer
-npx @charles/claude-code-templates@latest --agent backend-architect
-npx @charles/claude-code-templates@latest --agent database-architect
+npx github:charles1614/claude-code-templates --agent development-team/fullstack-developer
+npx github:charles1614/claude-code-templates --agent development-team/backend-architect
+npx github:charles1614/claude-code-templates --agent database/database-architect
 
 # Browser automation for testing
-npx @charles/claude-code-templates@latest --mcp playwright-mcp
+npx github:charles1614/claude-code-templates --mcp playwright-mcp
 
 # Database integration
-npx @charles/claude-code-templates@latest --mcp neon
-npx @charles/claude-code-templates@latest --mcp postgresql-integration
+npx github:charles1614/claude-code-templates --mcp neon
+npx github:charles1614/claude-code-templates --mcp postgresql-integration
 ```
 
 #### Setup Testing Environment
@@ -246,10 +246,10 @@ vercel env add JWT_SECRET
 /setup-ci-cd-pipeline
 
 # Optimize for production
-npx @charles/claude-code-templates@latest --command vercel-deploy-optimize
+npx github:charles1614/claude-code-templates --command vercel-deploy-optimize
 
 # Sync environment variables
-npx @charles/claude-code-templates@latest --command vercel-env-sync
+npx github:charles1614/claude-code-templates --command vercel-env-sync
 ```
 
 ---
@@ -498,7 +498,7 @@ export function RegisterForm() {
 #### Playwright MCP Integration
 ```bash
 # Install Playwright MCP from Charles repository
-npx @charles/claude-code-templates@latest --mcp playwright-mcp
+npx github:charles1614/claude-code-templates --mcp playwright-mcp
 
 # Request comprehensive browser testing
 "Run complete E2E test suite with Playwright:
@@ -577,7 +577,7 @@ async function loginAsTestUser(page: Page) {
 #### Neon PostgreSQL Setup
 ```bash
 # Install Neon integration from Charles repository
-npx @charles/claude-code-templates@latest --mcp neon
+npx github:charles1614/claude-code-templates --mcp neon
 
 # Request database setup
 "Set up Neon PostgreSQL database with:
@@ -1173,14 +1173,14 @@ async fn main() {
 /nextjs-scaffold tech-blog --typescript --tailwind
 
 # AI assistants from Charles repository
-npx @charles/claude-code-templates@latest --agent fullstack-developer
-npx @charles/claude-code-templates@latest --agent backend-architect
+npx github:charles1614/claude-code-templates --agent development-team/fullstack-developer
+npx github:charles1614/claude-code-templates --agent development-team/backend-architect
 
 # Testing
-npx @charles/claude-code-templates@latest --mcp playwright-mcp
+npx github:charles1614/claude-code-templates --mcp playwright-mcp
 
 # Database
-npx @charles/claude-code-templates@latest --mcp neon
+npx github:charles1614/claude-code-templates --mcp neon
 ```
 
 **Key Implementation:**
@@ -1217,10 +1217,10 @@ describe('Blog Post Creation', () => {
 /nextjs-scaffold mystore --typescript --tailwind
 
 # Payment integration
-npx @charles/claude-code-templates@latest --mcp stripe
+npx github:charles1614/claude-code-templates --mcp stripe
 
 # Database for inventory
-npx @charles/claude-code-templates@latest --mcp postgresql-integration
+npx github:charles1614/claude-code-templates --mcp postgresql-integration
 ```
 
 **Complex Features:**
@@ -1439,7 +1439,7 @@ npm run dev -- -p 3001
 #### Database Connection Issues
 ```bash
 # Check database connection
-npx @charles/claude-code-templates@latest --mcp neon
+npx github:charles1614/claude-code-templates --mcp neon
 
 # Verify environment variables
 echo $DATABASE_URL
