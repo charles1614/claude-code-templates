@@ -39,7 +39,7 @@ jobs:
             elif echo "$COMMIT_MSG" | grep -i "minor\|feature\|add\|new"; then
               echo "version-bump=minor" >> $GITHUB_OUTPUT
             else
-              echo "version-bump=patch" >> $ITHUB_OUTPUT
+              echo "version-bump=patch" >> $GITHUB_OUTPUT
             fi
           else
             echo "should-publish=false" >> $GITHUB_OUTPUT
