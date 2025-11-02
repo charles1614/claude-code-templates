@@ -56,8 +56,8 @@ npx github:charles1614/claude-code-templates --agent development-team/fullstack-
 npx github:charles1614/claude-code-templates --agent development-team/backend-architect
 
 # 3. Install testing and automation tools
-npx github:charles1614/claude-code-templates --mcp playwright-mcp
-npx github:charles1614/claude-code-templates --mcp neon
+npx github:charles1614/claude-code-templates --mcp browser_automation/playwright-mcp
+npx github:charles1614/claude-code-templates --mcp database/postgresql-integration
 
 # 4. Start development with TDD
 cd my-app
@@ -152,11 +152,11 @@ npx github:charles1614/claude-code-templates --agent development-team/backend-ar
 npx github:charles1614/claude-code-templates --agent database/database-architect
 
 # Browser automation for testing
-npx github:charles1614/claude-code-templates --mcp playwright-mcp
+npx github:charles1614/claude-code-templates --mcp browser_automation/playwright-mcp
 
 # Database integration
-npx github:charles1614/claude-code-templates --mcp neon
-npx github:charles1614/claude-code-templates --mcp postgresql-integration
+npx github:charles1614/claude-code-templates --mcp database/postgresql-integration
+npx github:charles1614/claude-code-templates --mcp integration/github-integration
 ```
 
 #### Setup Testing Environment
@@ -498,7 +498,7 @@ export function RegisterForm() {
 #### Playwright MCP Integration
 ```bash
 # Install Playwright MCP from Charles repository
-npx github:charles1614/claude-code-templates --mcp playwright-mcp
+npx github:charles1614/claude-code-templates --mcp browser_automation/playwright-mcp
 
 # Request comprehensive browser testing
 "Run complete E2E test suite with Playwright:
@@ -576,8 +576,8 @@ async function loginAsTestUser(page: Page) {
 
 #### Neon PostgreSQL Setup
 ```bash
-# Install Neon integration from Charles repository
-npx github:charles1614/claude-code-templates --mcp neon
+# Install PostgreSQL integration from Charles repository
+npx github:charles1614/claude-code-templates --mcp database/postgresql-integration
 
 # Request database setup
 "Set up Neon PostgreSQL database with:
@@ -1177,10 +1177,10 @@ npx github:charles1614/claude-code-templates --agent development-team/fullstack-
 npx github:charles1614/claude-code-templates --agent development-team/backend-architect
 
 # Testing
-npx github:charles1614/claude-code-templates --mcp playwright-mcp
+npx github:charles1614/claude-code-templates --mcp browser_automation/playwright-mcp
 
 # Database
-npx github:charles1614/claude-code-templates --mcp neon
+npx github:charles1614/claude-code-templates --mcp database/postgresql-integration
 ```
 
 **Key Implementation:**
@@ -1439,7 +1439,7 @@ npm run dev -- -p 3001
 #### Database Connection Issues
 ```bash
 # Check database connection
-npx github:charles1614/claude-code-templates --mcp neon
+npx github:charles1614/claude-code-templates --mcp database/postgresql-integration
 
 # Verify environment variables
 echo $DATABASE_URL
