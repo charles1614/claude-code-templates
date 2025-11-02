@@ -1,6 +1,6 @@
 ---
 allowed-tools: Read, Write, Edit, Bash
-argument-hint: [project-path] | --deep-analysis | --with-adr | --with-diagrams | --single-file | --multi-file
+argument-hint: [project-path] | --with-adr | --with-diagrams | --single-file
 description: Generate comprehensive deepwiki-style architecture documentation with deep codebase analysis and structured multi-file output
 ---
 
@@ -9,6 +9,13 @@ description: Generate comprehensive deepwiki-style architecture documentation wi
 Generate comprehensive, structured architecture documentation with deep codebase analysis for any project type: $ARGUMENTS
 
 **Best for**: Complex codebases requiring detailed analysis - frameworks, libraries, services, platforms, tooling, and systems of any kind.
+
+**Default behavior**: Deep analysis with multi-file output to `docs/<project-name>/`
+
+**Optional flags**:
+- `--with-adr`: Generate Architecture Decision Records in `docs/adr/`
+- `--with-diagrams`: Include PlantUML and additional diagram formats
+- `--single-file`: Output all documentation in a single `index.md` file (instead of multiple files)
 
 ## Current Architecture Context
 
