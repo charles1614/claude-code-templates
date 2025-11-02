@@ -146,6 +146,12 @@ Generate comprehensive deepwiki-style architecture documentation with codebase-f
   - ASCII art for simple hierarchies
   - Tables for feature matrices and component mappings
 
+- **Optional Documentation Frameworks** (Use if helpful)
+  - **C4 Model**: 4-level hierarchy (Context → Containers → Components → Code) for system visualization
+  - **Arc42**: Comprehensive template with 12 sections for thorough documentation
+  - **PlantUML**: Alternative to Mermaid for complex diagrams (use with `--with-diagrams`)
+  - **Note**: These are suggestions, not requirements. Adapt based on project needs.
+
 - **Plan Documentation Structure Dynamically**
   - Based on Task 1 discoveries, determine which sections are needed
   - Each project will have a DIFFERENT structure based on its actual features
@@ -265,6 +271,7 @@ Instead of following a hardcoded structure, create sections that match what you 
 **Overview Section** (Always include):
 - Write a "What is [Project]?" section explaining the system's purpose
 - Describe primary use cases and target users
+- Document key stakeholders and user personas (optional but helpful for context)
 - List supported models, frameworks, or platforms (in table format)
 - Include key metrics or capabilities
 - Add high-level architecture diagram
@@ -418,12 +425,17 @@ Instead of following a hardcoded structure, create sections that match what you 
 - Resource management and efficiency
 
 **Architecture Decision Records (ADRs)** (If using --with-adr flag):
-- Create ADR template and structure
-- Document key architectural decisions
-- Record decision context and rationale
-- Document alternatives considered
-- Track consequences and trade-offs
-- Set up ADR maintenance process
+- Create ADRs in `docs/adr/` directory
+- Use standard format:
+  - Title: "ADR-NNNN: [Decision]"
+  - Status: Proposed/Accepted/Deprecated/Superseded
+  - Context: What problem are we solving?
+  - Decision: What did we decide?
+  - Consequences: What are the trade-offs?
+  - Alternatives: What else was considered?
+- File naming: `NNNN-decision-title.md` (e.g., `0001-use-postgres.md`)
+- Document key architectural decisions discovered in codebase
+- Reference ADRs from relevant architecture sections
 
 **Data Architecture** (For data-intensive applications):
 - Data models and schemas
@@ -565,6 +577,47 @@ Last indexed: 19 October 2025 (1d7265)
   - Include generation timestamp
   - Reference source code commit hash
   - Note any assumptions or limitations in the analysis
+
+### 6. **Documentation Validation and Maintenance**
+
+**Ensure documentation quality and maintainability:**
+
+- **Validation Checks**
+  - Verify all internal links work (links between documentation files)
+  - Check all source file references exist and line numbers are reasonable
+  - Validate Mermaid diagrams render correctly
+  - Ensure all tables are properly formatted
+  - Confirm cross-references are accurate
+
+- **Accuracy Verification**
+  - Double-check file paths against actual codebase
+  - Verify line number references point to correct code
+  - Ensure code snippets are accurate and up-to-date
+  - Confirm external links are valid
+
+- **Metadata and Versioning**
+  - Include generation timestamp in each file
+  - Add source commit hash for traceability
+  - Note documentation scope and any limitations
+  - Consider adding "Last verified" date for future updates
+
+- **Documentation Review**
+  - Suggest having documentation reviewed by team members
+  - Check for clarity and readability
+  - Ensure consistency in terminology and formatting
+  - Verify technical accuracy with code owners
+
+- **Keeping Docs Updated** (Optional recommendations)
+  - Set up documentation review process when code changes
+  - Consider CI checks for broken links or references
+  - Suggest periodic documentation audits (e.g., quarterly)
+  - Document how to regenerate/update architecture docs
+
+- **Automation Opportunities** (Optional)
+  - Mention tools like `markdown-link-check` for link validation
+  - Suggest using `grep` or scripts to verify file references
+  - Consider diagram generation from code annotations (if applicable)
+  - Note that documentation should evolve with the codebase
 
 ## Documentation Format Guidelines
 
@@ -874,6 +927,7 @@ docs/myproject/
 3. **Task 2: Plan Structure** → Determine sections based on what you discovered
 4. **Task 4: Generate Index First** → Create `docs/<project-name>/index.md` with TOC
 5. **Task 5: Generate Detail Files** → Create each first-level section as a separate file
+6. **Task 6: Validate & Review** → Check links, verify references, ensure quality
 
 **Critical Rule**: Code is the source of truth. Existing documentation may be outdated.
 
