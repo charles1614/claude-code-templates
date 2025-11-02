@@ -1,6 +1,6 @@
 # 🚀 The Ultimate Guide to Full-Stack Development with Claude Code
 
-> Build production-ready web applications in hours, not weeks. This comprehensive guide covers everything from MVP development to enterprise-grade architecture.
+> Build production-ready web applications in hours, not weeks. This comprehensive guide covers everything from MVP development to enterprise-grade architecture using the Charles NPM repository for Claude Code Templates.
 
 ## 📚 Table of Contents
 
@@ -51,13 +51,13 @@
 # 1. Create your application
 /nextjs-scaffold my-app --typescript --tailwind --app-router
 
-# 2. Install AI development assistants
-npx claude-code-templates@latest --agent fullstack-developer
-npx claude-code-templates@latest --agent backend-architect
+# 2. Install AI development assistants from Charles repository
+npx @charles/claude-code-templates@latest --agent fullstack-developer
+npx @charles/claude-code-templates@latest --agent backend-architect
 
 # 3. Install testing and automation tools
-npx claude-code-templates@latest --mcp playwright-mcp
-npx claude-code-templates@latest --mcp neon
+npx @charles/claude-code-templates@latest --mcp playwright-mcp
+npx @charles/claude-code-templates@latest --mcp neon
 
 # 4. Start development with TDD
 cd my-app
@@ -130,8 +130,8 @@ npx create-next-app@latest my-awesome-app --typescript --tailwind --eslint
 # Navigate to project
 cd my-awesome-app
 
-# Install Claude Code Templates
-npx claude-code-templates@latest --agent fullstack-developer
+# Install Claude Code Templates from Charles repository
+npx @charles/claude-code-templates@latest --agent fullstack-developer
 ```
 
 **What you get:**
@@ -146,17 +146,17 @@ npx claude-code-templates@latest --agent fullstack-developer
 
 #### Install AI Development Team
 ```bash
-# Core development agents
-npx claude-code-templates@latest --agent fullstack-developer
-npx claude-code-templates@latest --agent backend-architect
-npx claude-code-templates@latest --agent database-architect
+# Core development agents from Charles repository
+npx @charles/claude-code-templates@latest --agent fullstack-developer
+npx @charles/claude-code-templates@latest --agent backend-architect
+npx @charles/claude-code-templates@latest --agent database-architect
 
 # Browser automation for testing
-npx claude-code-templates@latest --mcp playwright-mcp
+npx @charles/claude-code-templates@latest --mcp playwright-mcp
 
 # Database integration
-npx claude-code-templates@latest --mcp neon
-npx claude-code-templates@latest --mcp postgresql-integration
+npx @charles/claude-code-templates@latest --mcp neon
+npx @charles/claude-code-templates@latest --mcp postgresql-integration
 ```
 
 #### Setup Testing Environment
@@ -246,10 +246,10 @@ vercel env add JWT_SECRET
 /setup-ci-cd-pipeline
 
 # Optimize for production
-npx claude-code-templates@latest --command vercel-deploy-optimize
+npx @charles/claude-code-templates@latest --command vercel-deploy-optimize
 
 # Sync environment variables
-npx claude-code-templates@latest --command vercel-env-sync
+npx @charles/claude-code-templates@latest --command vercel-env-sync
 ```
 
 ---
@@ -497,8 +497,8 @@ export function RegisterForm() {
 
 #### Playwright MCP Integration
 ```bash
-# Install Playwright MCP
-npx claude-code-templates@latest --mcp playwright-mcp
+# Install Playwright MCP from Charles repository
+npx @charles/claude-code-templates@latest --mcp playwright-mcp
 
 # Request comprehensive browser testing
 "Run complete E2E test suite with Playwright:
@@ -576,8 +576,8 @@ async function loginAsTestUser(page: Page) {
 
 #### Neon PostgreSQL Setup
 ```bash
-# Install Neon integration
-npx claude-code-templates@latest --mcp neon
+# Install Neon integration from Charles repository
+npx @charles/claude-code-templates@latest --mcp neon
 
 # Request database setup
 "Set up Neon PostgreSQL database with:
@@ -1172,15 +1172,15 @@ async fn main() {
 # Project setup
 /nextjs-scaffold tech-blog --typescript --tailwind
 
-# AI assistants
-npx claude-code-templates@latest --agent fullstack-developer
-npx claude-code-templates@latest --agent backend-architect
+# AI assistants from Charles repository
+npx @charles/claude-code-templates@latest --agent fullstack-developer
+npx @charles/claude-code-templates@latest --agent backend-architect
 
 # Testing
-npx claude-code-templates@latest --mcp playwright-mcp
+npx @charles/claude-code-templates@latest --mcp playwright-mcp
 
 # Database
-npx claude-code-templates@latest --mcp neon
+npx @charles/claude-code-templates@latest --mcp neon
 ```
 
 **Key Implementation:**
@@ -1217,10 +1217,10 @@ describe('Blog Post Creation', () => {
 /nextjs-scaffold mystore --typescript --tailwind
 
 # Payment integration
-npx claude-code-templates@latest --mcp stripe
+npx @charles/claude-code-templates@latest --mcp stripe
 
 # Database for inventory
-npx claude-code-templates@latest --mcp postgresql-integration
+npx @charles/claude-code-templates@latest --mcp postgresql-integration
 ```
 
 **Complex Features:**
@@ -1394,7 +1394,7 @@ export function useRealTimeTasks(projectId: string) {
 - [Tailwind CSS Documentation](https://tailwindcss.com/docs) - Utility-first CSS
 
 **Template System Documentation:**
-- [Claude Code Templates](https://aitmpl.com) - Interactive component browser
+- [Charles Claude Code Templates](https://aitmpl.com) - Interactive component browser
 - [Component Catalog](https://aitmpl.com/components) - 600+ available templates
 - [API Reference](https://aitmpl.com/docs) - Detailed API documentation
 - [Best Practices Guide](https://aitmpl.com/guides) - Development guidelines
@@ -1439,7 +1439,7 @@ npm run dev -- -p 3001
 #### Database Connection Issues
 ```bash
 # Check database connection
-npx claude-code-templates@latest --mcp neon
+npx @charles/claude-code-templates@latest --mcp neon
 
 # Verify environment variables
 echo $DATABASE_URL
@@ -1477,7 +1477,7 @@ You now have everything you need to build production-ready web applications with
 
 ### Your Next Steps
 
-1. **Build Your First Project**: Follow the quick start guide
+1. **Build Your First Project**: Follow the quick start guide using the Charles repository
 2. **Explore Templates**: Browse [aitmpl.com](https://aitmpl.com) for available components
 3. **Join the Community**: Connect with other developers on Discord
 4. **Share Your Work**: Submit your project to the showcase gallery
@@ -1496,6 +1496,6 @@ If you need help at any point, remember that the AI agents are always available 
 
 ---
 
-**Built with ❤️ using Claude Code Templates**
+**Built with ❤️ using Charles Claude Code Templates**
 
 *For more templates, agents, and inspiration, visit: [aitmpl.com](https://aitmpl.com)*
