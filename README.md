@@ -1,5 +1,4 @@
-[![npm version](https://img.shields.io/npm/v/claude-code-templates.svg)](https://www.npmjs.com/package/claude-code-templates)
-[![npm downloads](https://img.shields.io/npm/dt/claude-code-templates.svg)](https://www.npmjs.com/package/claude-code-templates)
+[![npm version](https://img.shields.io/npm/v/@charles1614/claude-code-templates.svg)](https://github.com/charles1614/claude-code-templates/packages)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![GitHub stars](https://img.shields.io/github/stars/davila7/claude-code-templates.svg?style=social&label=Star)](https://github.com/davila7/claude-code-templates)
@@ -25,7 +24,7 @@
 
 ```bash
 # Install a complete development stack
-npx claude-code-templates@latest --agent development-team/frontend-developer --command testing/generate-tests --mcp development/github-integration --yes
+npx @charles1614/claude-code-templates@latest --registry=https://npm.pkg.github.com
 
 # Browse and install interactively
 npx claude-code-templates@latest
