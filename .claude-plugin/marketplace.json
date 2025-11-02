@@ -187,7 +187,8 @@
         "./cli-tool/components/commands/documentation/update-docs.md",
         "./cli-tool/components/commands/documentation/create-user-guide.md",
         "./cli-tool/components/commands/documentation/setup-docusaurus.md",
-        "./cli-tool/components/commands/documentation/generate-changelog.md"
+        "./cli-tool/components/commands/documentation/generate-changelog.md",
+        "./cli-tool/components/commands/documentation/create-deepwiki-architecture.md"
       ],
       "agents": [
         "./cli-tool/components/agents/documentation/technical-writer.md",
