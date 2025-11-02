@@ -5,6 +5,9 @@
 .env.development
 .env*.local
 
+# Claude settings
+.claude/settings.local.json
+
 # Database related files
 *.db
 *.sqlite
@@ -55,3 +58,14 @@ test-cloudflare/
 
 # Deployment
 .vercel
+
+# Temporary files and directories
+tmp/
+tmp*/
+
+# Cursor editor files
+.cursor/
+.cursor/*
+
+# Git worktrees
+.git/worktrees/
