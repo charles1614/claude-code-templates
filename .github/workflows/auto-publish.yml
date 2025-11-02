@@ -37,7 +37,7 @@ jobs:
             if echo "$COMMIT_MSG" | grep -i "major\|breaking"; then
               echo "version-bump=major" >> $GITHUB_OUTPUT
             elif echo "$COMMIT_MSG" | grep -i "minor\|feature\|add\|new"; then
-              echo "version-bump=minor" >> $ITHUB_OUTPUT
+              echo "version-bump=minor" >> $GITHUB_OUTPUT
             else
               echo "version-bump=patch" >> $ITHUB_OUTPUT
             fi
