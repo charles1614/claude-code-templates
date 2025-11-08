@@ -1,6 +1,6 @@
 {
   "name": "@charles1614/claude-code-templates",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Enhanced Claude Code templates with additional dependencies and TypeScript support. Based on claude-code-templates by Daniel (San) Ávila under MIT License.",
   "main": "cli-tool/src/index.js",
   "bin": {
