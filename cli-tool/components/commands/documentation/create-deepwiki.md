@@ -30,14 +30,21 @@ Generate comprehensive, structured architecture documentation with deep codebase
 - Architecture files: !`find . -name "*architecture*" -o -name "*design*" -o -name "*.puml" | head -3`
 
 ### Core Components Discovery
-- Entry points and main files: !`find . -type f \( -name "main.*" -o -name "__main__.py" -o -name "index.*" -o -name "app.*" \) | grep -v "node_modules\|\.git\|test" | head -8`
-- Core modules: !`find . -type f \( -name "*manager*" -o -name "*controller*" -o -name "*handler*" -o -name "*service*" \) | grep -v "node_modules\|\.git\|test" | head -10`
-- Configuration system: !`find . -type f \( -name "*config*" -o -name "*settings*" -o -name "*options*" \) | grep -v "node_modules\|\.git\|test" | head -8`
+- Entry points and main files: !`find . -type f \( -name "main.*" -o -name "__main__.py" -o -name "index.*" -o -name "app.*" -o -name "server.*" -o -name "run.*" \) | grep -v "node_modules\|\.git\|test\|dist\|build" | head -20`
+- Core modules: !`find . -type f \( -name "*manager*" -o -name "*controller*" -o -name "*handler*" -o -name "*service*" -o -name "*core*" -o -name "*engine*" \) | grep -v "node_modules\|\.git\|test\|dist\|build" | head -30`
+- Configuration system: !`find . -type f \( -name "*config*" -o -name "*settings*" -o -name "*options*" -o -name "*env*" \) | grep -v "node_modules\|\.git\|test\|dist\|build" | head -20`
 
 ### Interface and Integration
-- API definitions: !`find . -name "*api*" -o -name "*openapi*" -o -name "*swagger*" -o -name "*proto*" | grep -v "node_modules\|\.git" | head -5`
-- Server/HTTP components: !`find . -type f \( -name "*server*" -o -name "*http*" -o -name "*route*" \) | grep -v "node_modules\|\.git\|test" | head -8`
-- CLI interfaces: !`find . -type f \( -name "*cli*" -o -name "*command*" -o -name "*cmd*" \) | grep -v "node_modules\|\.git\|test" | head -5`
+- API definitions: !`find . -name "*api*" -o -name "*openapi*" -o -name "*swagger*" -o -name "*proto*" -o -name "*schema*" | grep -v "node_modules\|\.git\|test\|dist\|build" | head -15`
+- Server/HTTP components: !`find . -type f \( -name "*server*" -o -name "*http*" -o -name "*route*" -o -name "*endpoint*" -o -name "*middleware*" \) | grep -v "node_modules\|\.git\|test\|dist\|build" | head -25`
+- CLI interfaces: !`find . -type f \( -name "*cli*" -o -name "*command*" -o -name "*cmd*" \) | grep -v "node_modules\|\.git\|test\|dist\|build" | head -15`
+
+### Extended Code Analysis
+- Database/data layer: !`find . -type f \( -name "*model*" -o -name "*schema*" -o -name "*repository*" -o -name "*dao*" -o -name "*migration*" -o -name "*seed*" \) | grep -v "node_modules\|\.git\|test\|dist\|build" | head -20`
+- Testing infrastructure: !`find . -name "*test*" -o -name "*spec*" | grep -v "node_modules\|\.git" | head -15`
+- Build/deployment: !`find . -name "*webpack*" -o -name "*vite*" -o -name "*rollup*" -o -name "*gulp*" -o -name "*grunt*" -o -name "Dockerfile*" -o -name "*.dockerfile" | head -10`
+- Package configurations: !`find . -name "package.json" -o -name "requirements.txt" -o -name "Cargo.toml" -o -name "go.mod" -o -name "pom.xml" -o -name "build.gradle" | head -10`
+- Language-specific configs: !`find . -name "tsconfig.json" -o -name ".eslintrc*" -o -name "pyproject.toml" -o -name "setup.py" -o -name "CMakeLists.txt" | head -10`
 
 ### Deployment and Infrastructure
 - Containers: @docker-compose.yml or @Dockerfile or @.dockerignore (if exists)
@@ -65,6 +72,13 @@ Generate comprehensive deepwiki-style architecture documentation with codebase-f
   - Detect key dependencies and third-party libraries
   - Read package manifests and dependency files for metadata
   - Understand the project's purpose and target users
+  - **Deep language analysis**: Scan ALL source files by language:
+    - Python: `find . -name "*.py" | grep -v "node_modules\|\.git\|test" | head -50`
+    - JavaScript/TypeScript: `find . -name "*.js" -o -name "*.ts" -o -name "*.jsx" -o -name "*.tsx" | grep -v "node_modules\|\.git\|test" | head -50`
+    - Go: `find . -name "*.go" | grep -v "vendor\|\.git\|test" | head -30`
+    - Rust: `find . -name "*.rs" | grep -v "target\|\.git\|test" | head -30`
+    - C/C++: `find . -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" | grep -v "build\|\.git\|test" | head -30`
+    - Java: `find . -name "*.java" | grep -v "build\|\.git\|test" | head -30`
 
 - **Core Architectural Patterns**
   - **Concurrency models**: Multi-process, multi-threading, async/await, event-driven, actor model
@@ -72,6 +86,10 @@ Generate comprehensive deepwiki-style architecture documentation with codebase-f
   - **Distributed systems**: Clustering, sharding, replication, consensus, coordination
   - **Design patterns**: MVC, microservices, layered architecture, plugin systems, pipelines
   - **State management**: Stateless vs stateful, session management, caching strategies
+  - **Pattern detection through code analysis**:
+    - Search for architectural keywords: `grep -r -i "singleton\|factory\|observer\|decorator\|strategy\|proxy\|adapter\|command\|facade" --include="*.py" --include="*.js" --include="*.ts" --include="*.go" --include="*.java" | head -20`
+    - Search for concurrency patterns: `grep -r -i "async\|await\|thread\|process\|goroutine\|mutex\|lock\|semaphore\|channel" --include="*.py" --include="*.js" --include="*.ts" --include="*.go" | head -20`
+    - Search for IPC/communication: `grep -r -i "grpc\|zmq\|redis\|rabbitmq\|kafka\|websocket\|http\|rest" --include="*.py" --include="*.js" --include="*.ts" | head -20`
 
 - **Key Features and Capabilities Discovery**
   - **Data management**: Databases, caching, persistence, storage backends, data models
@@ -79,6 +97,10 @@ Generate comprehensive deepwiki-style architecture documentation with codebase-f
   - **Optimization techniques**: Caching, connection pooling, lazy loading, prefetching, compression
   - **Scalability features**: Load balancing, horizontal/vertical scaling, resource management
   - **Reliability**: Error handling, retry logic, circuit breakers, fallbacks, health checks
+  - **Comprehensive feature scanning**:
+    - Database integrations: `grep -r -i "database\|db\|sql\|nosql\|mysql\|postgres\|mongodb\|redis" --include="*.py" --include="*.js" --include="*.ts" --include="*.go" | head -20`
+    - Caching mechanisms: `grep -r -i "cache\|lru\|ttl\|expire\|memory.*cache" --include="*.py" --include="*.js" --include="*.ts" | head -20`
+    - Error handling patterns: `grep -r -i "try.*catch\|except\|error\|exception\|fail\|retry\|circuit.*breaker" --include="*.py" --include="*.js" --include="*.ts" | head -20`
 
 - **Component Discovery and Taxonomy**
   - **Entry points**: Main application, HTTP/API servers, CLI interfaces, workers, daemons
@@ -87,6 +109,10 @@ Generate comprehensive deepwiki-style architecture documentation with codebase-f
   - **Integration layer**: External API clients, adapters, connectors, drivers
   - **Infrastructure**: Configuration, logging, monitoring, authentication, authorization
   - **Utilities**: Helpers, validators, formatters, parsers, converters
+  - **Deep component enumeration**:
+    - All source files by type: `find . -name "*.py" -o -name "*.js" -o -name "*.ts" -o -name "*.go" -o -name "*.rs" -o -name "*.java" | grep -v "node_modules\|\.git\|vendor\|target\|_build" | wc -l && find . -name "*.py" -o -name "*.js" -o -name "*.ts" -o -name "*.go" -o -name "*.rs" -o -name "*.java" | grep -v "node_modules\|\.git\|vendor\|target\|_build" | head -50`
+    - Class/struct analysis: `grep -r "^\s*class\|^\s*struct\|^\s*interface\|^\s*type.*struct" --include="*.py" --include="*.js" --include="*.ts" --include="*.go" --include="*.rs" | head -30`
+    - Function/method discovery: `grep -r "def\|function\|func\s\|public\|private" --include="*.py" --include="*.js" --include="*.ts" --include="*.go" --include="*.java" | head -40`
 
 - **Integration and Interface Analysis**
   - External systems and dependencies
@@ -94,6 +120,10 @@ Generate comprehensive deepwiki-style architecture documentation with codebase-f
   - Authentication and authorization mechanisms
   - Data formats and serialization (JSON, Protocol Buffers, MessagePack)
   - Event schemas and messaging patterns
+  - **Interface exploration**:
+    - API route definitions: `grep -r -i "endpoint\|route\|@.*route\|@.*api\|app\.\(get\|post\|put\|delete\)" --include="*.py" --include="*.js" --include="*.ts" | head -20`
+    - External service integrations: `grep -r -i "import.*requests\|fetch\|axios\|http\|grpc\|amqp\|smqp" --include="*.py" --include="*.js" --include="*.ts" | head -15`
+    - Authentication/security: `grep -r -i "auth\|jwt\|oauth\|token\|password\|hash" --include="*.py" --include="*.js" --include="*.ts" | head -15`
 
 - **Data Flow and Processing Pipelines**
   - Request/response lifecycle
@@ -101,6 +131,9 @@ Generate comprehensive deepwiki-style architecture documentation with codebase-f
   - Validation and sanitization
   - Business logic execution flow
   - Inter-component communication patterns
+  - **Pipeline analysis**:
+    - Data flow patterns: `grep -r -i "pipeline\|stream\|flow\|transform\|process\|filter\|map\|reduce" --include="*.py" --include="*.js" --include="*.ts" | head -20`
+    - Validation logic: `grep -r -i "validate\|sanitiz\|check\|verify\|ensure" --include="*.py" --include="*.js" --include="*.ts" | head -15`
 
 - **Quality Attributes Assessment**
   - Performance optimization techniques
@@ -108,6 +141,10 @@ Generate comprehensive deepwiki-style architecture documentation with codebase-f
   - Monitoring and observability setup
   - Testing infrastructure and coverage
   - Error handling and logging strategies
+  - **Quality analysis**:
+    - Testing patterns: `find . -name "*test*" -o -name "*spec*" | grep -v "node_modules\|\.git" | head -20` and `grep -r -i "describe\|it\(|test\|assert\|expect" --include="*.py" --include="*.js" --include="*.ts" | head -15`
+    - Monitoring/logging: `grep -r -i "log\|monitor\|metric\|track\|observ" --include="*.py" --include="*.js" --include="*.ts" | head -15`
+    - Performance: `grep -r -i "performance\|benchmark\|profile\|optimize\|cache\|lazy" --include="*.py" --include="*.js" --include="*.ts" | head -15`
 
 - **Existing Documentation Review**
   - Read existing documentation (README.md, docs/, wikis) for context and high-level understanding
@@ -117,7 +154,7 @@ Generate comprehensive deepwiki-style architecture documentation with codebase-f
   - Use existing docs to understand intent, but document actual implementation
   - Leverage good explanations from docs, but update with current reality
 
-- **Project Evolution and Roadmap Discovery** (Optional - only if available)
+- **Project Evolution and Roadmap Discovery** (Always include - generate from available sources)
   - **Historical Context**: 
     - Review CHANGELOG.md, HISTORY.md, or RELEASES.md for past development
     - Examine version tags and release notes for feature evolution
@@ -126,16 +163,21 @@ Generate comprehensive deepwiki-style architecture documentation with codebase-f
   - **Current State**:
     - Identify recent major changes and refactorings
     - Note experimental or beta features
-    - Find TODO/FIXME comments in code indicating known issues
+    - Find TODO/FIXME comments in code indicating known issues:
+      ```bash
+      grep -r "TODO\|FIXME\|HACK\|NOTE\|XXX\|BUG" --include="*.py" --include="*.js" --include="*.ts" --include="*.go" | head -20
+      ```
   - **Future Direction**:
     - Check ROADMAP.md, TODO.md, or similar planning documents
     - Review GitHub/GitLab issues labeled as "enhancement" or "future"
     - Look for milestone plans or project boards
     - Find code comments like "TODO: future optimization" or "planned feature"
+    - **If no formal roadmap exists**: Note inferred direction from code patterns, recent commits, and architectural changes
   - **Technical Debt**:
     - Identify areas marked for refactoring
     - Find workarounds or temporary solutions
     - Note performance bottlenecks mentioned in code
+    - **If minimal technical debt found**: State that the codebase appears well-maintained
 
 **Output of this task**: Create a comprehensive feature map and component taxonomy that will guide the structure of all subsequent documentation sections. Store findings in working memory for reference.
 
@@ -396,7 +438,7 @@ Instead of following a hardcoded structure, create sections that match what you 
 - Platform-specific builds
 - Installation packaging
 
-**Project Evolution and Roadmap** (Optional - only if discoverable):
+**Project Evolution and Roadmap** (Always include - generate from available sources):
 - Historical development: Past versions, major milestones, feature evolution
 - Current state: Recent changes, experimental features, known issues
 - Future direction: Planned features, roadmap items, upcoming improvements
@@ -571,6 +613,14 @@ Last indexed: 19 October 2025 (1d7265)
   - Include deepwiki-style formatting: tables, diagrams, source references with line numbers
   - Add navigation: Link back to index at top: `[← Back to Index](index.md)`
   - Cross-reference related sections with proper file links
+  - **Enhanced code analysis for documentation**:
+    - Read and analyze key files to extract actual implementation details
+    - For major components: Read the top 50-100 lines to understand structure and patterns
+    - For configuration files: Extract all available settings and their purposes
+    - For API definitions: Document all endpoints with methods, parameters, and responses
+    - For database schemas: Document models, relationships, and constraints
+    - For test files: Identify testing patterns and coverage areas
+    - For build configs: Document build processes, dependencies, and deployment setups
 
 - **Ensure Documentation Quality**
   - All source file references must be accurate with correct paths
@@ -579,11 +629,24 @@ Last indexed: 19 October 2025 (1d7265)
   - Tables must be properly formatted with aligned columns
   - Cross-references must use correct file names/anchors
   - Verify all links work (especially links to other documentation files)
+  - **Deep verification process**:
+    - For each referenced file, verify it exists and contains the mentioned code
+    - Check that class/function names match exactly what's in the source
+    - Verify line numbers are accurate (within reasonable range)
+    - Test Mermaid diagrams for syntax errors
+    - Validate that all component relationships described in docs actually exist in code
+    - Cross-check API endpoints with actual route definitions
+    - Confirm database models match schema definitions
 
 - **Add Metadata to Each File**
   - Include generation timestamp
   - Reference source code commit hash
   - Note any assumptions or limitations in the analysis
+  - Include codebase statistics:
+    - Total files analyzed: `find . -type f \( -name "*.py" -o -name "*.js" -o -name "*.ts" -o -name "*.go" -o -name "*.rs" -o -name "*.java" -o -name "*.c" -o -name "*.cpp" -o -name "*.h" \) | grep -v "node_modules\|\.git\|vendor\|target\|build" | wc -l`
+    - Lines of code analyzed: `find . -name "*.py" -o -name "*.js" -o -name "*.ts" -o -name "*.go" -o -name "*.rs" -o -name "*.java" | grep -v "node_modules\|\.git\|vendor\|target\|build" | xargs wc -l | tail -1`
+    - Main languages detected and their file counts
+    - Key frameworks and libraries identified
 
 ### 6. **Documentation Validation and Maintenance**
 
@@ -625,6 +688,168 @@ Last indexed: 19 October 2025 (1d7265)
   - Suggest using `grep` or scripts to verify file references
   - Consider diagram generation from code annotations (if applicable)
   - Note that documentation should evolve with the codebase
+
+## Enhanced Deep Wiki Generation Rules
+
+### Maximum Code Coverage Strategy
+
+**MANDATORY**: Execute ALL discovery commands and analyze their results before writing any documentation:
+
+```bash
+# Phase 1: Complete Codebase Enumeration
+echo "=== COMPLETE CODEBASE ENUMERATION ==="
+echo "Total source files by type:"
+find . -type f \( -name "*.py" -o -name "*.js" -o -name "*.ts" -o -name "*.jsx" -o -name "*.tsx" -o -name "*.go" -o -name "*.rs" -o -name "*.java" -o -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" \) | grep -v "node_modules\|\.git\|vendor\|target\|_build\|dist\|build" | wc -l
+
+echo "Lines of code:"
+find . -name "*.py" -o -name "*.js" -o -name "*.ts" -o -name "*.jsx" -o -name "*.tsx" -o -name "*.go" -o -name "*.rs" -o -name "*.java" -o -name "*.c" -o -name "*.cpp" | grep -v "node_modules\|\.git\|vendor\|target\|_build\|dist\|build" | xargs wc -l
+
+echo "Language distribution:"
+echo "Python: $(find . -name "*.py" | grep -v "node_modules\|\.git\|vendor\|target\|test" | wc -l)"
+echo "JavaScript/TypeScript: $(find . -name "*.js" -o -name "*.ts" -o -name "*.jsx" -o -name "*.tsx" | grep -v "node_modules\|\.git\|vendor\|test" | wc -l)"
+echo "Go: $(find . -name "*.go" | grep -v "vendor\|\.git\|test" | wc -l)"
+echo "Rust: $(find . -name "*.rs" | grep -v "target\|\.git\|test" | wc -l)"
+echo "Java: $(find . -name "*.java" | grep -v "build\|\.git\|test" | wc -l)"
+echo "C/C++: $(find . -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" | grep -v "build\|\.git\|test" | wc -l)"
+
+# Phase 2: Deep Architecture Scanning
+echo "=== DEEP ARCHITECTURE SCANNING ==="
+echo "All entry points and main files:"
+find . -type f \( -name "main.*" -o -name "__main__.py" -o -name "index.*" -o -name "app.*" -o -name "server.*" -o -name "run.*" \) | grep -v "node_modules\|\.git\|test\|dist\|build" 2>/dev/null || echo "No main entry points found"
+
+echo "All core modules:"
+find . -type f \( -name "*manager*" -o -name "*controller*" -o -name "*handler*" -o -name "*service*" -o -name "*core*" -o -name "*engine*" -o -name "*worker*" \) | grep -v "node_modules\|\.git\|test\|dist\|build" 2>/dev/null || echo "No core modules found"
+
+echo "All configuration files:"
+find . -type f \( -name "*config*" -o -name "*settings*" -o -name "*options*" -o -name "*env*" -o -name "*.yaml" -o -name "*.yml" -o -name "*.toml" \) | grep -v "node_modules\|\.git\|test\|dist\|build" 2>/dev/null || echo "No config files found"
+
+# Phase 3: API and Interface Deep Dive
+echo "=== API AND INTERFACE DEEP DIVE ==="
+echo "All API definitions:"
+find . -name "*api*" -o -name "*openapi*" -o -name "*swagger*" -o -name "*proto*" -o -name "*schema*" | grep -v "node_modules\|\.git\|test\|dist\|build" 2>/dev/null || echo "No API files found"
+
+echo "All HTTP/server components:"
+find . -type f \( -name "*server*" -o -name "*http*" -o -name "*route*" -o -name "*endpoint*" -o -name "*middleware*" \) | grep -v "node_modules\|\.git\|test\|dist\|build" 2>/dev/null || echo "No HTTP/server components found"
+
+echo "CLI interfaces:"
+find . -type f \( -name "*cli*" -o -name "*command*" -o -name "*cmd*" \) | grep -v "node_modules\|\.git\|test\|dist\|build" 2>/dev/null || echo "No CLI interfaces found"
+
+# Phase 4: Data and Infrastructure Mapping
+echo "=== DATA AND INFRASTRUCTURE MAPPING ==="
+echo "Database/data layer:"
+find . -type f \( -name "*model*" -o -name "*schema*" -o -name "*repository*" -o -name "*dao*" -o -name "*migration*" -o -name "*seed*" -o -name "*entity*" \) | grep -v "node_modules\|\.git\|test\|dist\|build" 2>/dev/null || echo "No data layer files found"
+
+echo "Testing infrastructure:"
+find . -name "*test*" -o -name "*spec*" | grep -v "node_modules\|\.git" 2>/dev/null || echo "No test files found"
+
+echo "Build and deployment:"
+find . -name "webpack*" -o -name "vite*" -o -name "rollup*" -o -name "*dockerfile*" -o -name "docker-compose*" -o -name "*.github" -o -name ".gitlab*" | head -20 2>/dev/null || echo "No build/deployment files found"
+```
+
+### Advanced Pattern Recognition
+
+**CRITICAL**: Run these searches to identify architectural patterns and design decisions:
+
+```bash
+# Architecture Pattern Detection
+echo "=== ARCHITECTURE PATTERN DETECTION ==="
+echo "Design patterns in code:"
+grep -r -i "singleton\|factory\|observer\|decorator\|strategy\|proxy\|adapter\|command\|facade" --include="*.py" --include="*.js" --include="*.ts" --include="*.go" --include="*.java" 2>/dev/null | head -30 || echo "No common design patterns found"
+
+echo "Concurrency patterns:"
+grep -r -i "async\|await\|thread\|process\|goroutine\|mutex\|lock\|semaphore\|channel\|coroutine" --include="*.py" --include="*.js" --include="*.ts" --include="*.go" 2>/dev/null | head -30 || echo "No concurrency patterns found"
+
+echo "Communication patterns:"
+grep -r -i "grpc\|zmq\|redis\|rabbitmq\|kafka\|websocket\|http\|rest\|graphql\|message.*queue" --include="*.py" --include="*.js" --include="*.ts" 2>/dev/null | head -30 || echo "No communication patterns found"
+
+# Feature and Capability Discovery
+echo "=== FEATURE AND CAPABILITY DISCOVERY ==="
+echo "Database integrations:"
+grep -r -i "database\|db\|sql\|nosql\|mysql\|postgres\|mongodb\|sqlite\|oracle" --include="*.py" --include="*.js" --include="*.ts" --include="*.go" 2>/dev/null | head -30 || echo "No database integrations found"
+
+echo "Caching mechanisms:"
+grep -r -i "cache\|lru\|ttl\|expire\|memory.*cache\|redis.*cache" --include="*.py" --include="*.js" --include="*.ts" 2>/dev/null | head -20 || echo "No caching found"
+
+echo "Error handling patterns:"
+grep -r -i "try.*catch\|except\|error\|exception\|fail\|retry\|circuit.*breaker\|fallback" --include="*.py" --include="*.js" --include="*.ts" --include="*.java" 2>/dev/null | head -30 || echo "No error handling patterns found"
+
+echo "Security/Authentication:"
+grep -r -i "auth\|jwt\|oauth\|token\|password\|hash\|encrypt\|sign\|certificate" --include="*.py" --include="*.js" --include="*.ts" 2>/dev/null | head -20 || echo "No security patterns found"
+
+# Component Structure Analysis
+echo "=== COMPONENT STRUCTURE ANALYSIS ==="
+echo "Classes and structures:"
+grep -r "^\s*class\|^\s*struct\|^\s*interface\|^\s*type.*struct" --include="*.py" --include="*.js" --include="*.ts" --include="*.go" --include="*.rs" 2>/dev/null | head -50 || echo "No classes/structs found"
+
+echo "Functions and methods:"
+grep -r "def\|function\|func\s\|public\|private\|protected" --include="*.py" --include="*.js" --include="*.ts" --include="*.go" --include="*.java" 2>/dev/null | head -50 || echo "No functions found"
+
+echo "API routes and endpoints:"
+grep -r -i "endpoint\|route\|@.*route\|@.*api\|app\.\(get\|post\|put\|delete\)\|router\." --include="*.py" --include="*.js" --include="*.ts" 2>/dev/null | head -30 || echo "No API routes found"
+
+# Quality and Maintenance Indicators
+echo "=== QUALITY AND MAINTENANCE ==="
+echo "Testing patterns:"
+grep -r -i "describe\|it\(|test\|assert\|expect\|mock\|spec" --include="*.py" --include="*.js" --include="*.ts" 2>/dev/null | head -20 || echo "No testing patterns found"
+
+echo "Monitoring and observability:"
+grep -r -i "log\|monitor\|metric\|track\|observ\|telemetry\|trace" --include="*.py" --include="*.js" --include="*.ts" 2>/dev/null | head -20 || echo "No monitoring found"
+
+echo "Technical debt indicators:"
+grep -r "TODO\|FIXME\|HACK\|NOTE\|XXX\|BUG\|DEPRECATED" --include="*.py" --include="*.js" --include="*.ts" --include="*.go" 2>/dev/null | head -20 || echo "No technical debt indicators found"
+```
+
+### MAXIMUM COVERAGE REQUIREMENTS
+
+**MANDATORY THRESHOLDS** - The documentation must cover:
+
+1. **Minimum File Analysis**:
+   - For codebases < 1000 files: Analyze ALL files
+   - For codebases 1000-5000 files: Analyze at least 2000 files (40%+)
+   - For codebases 5000+ files: Analyze at least 3000 files (60%+)
+
+2. **Minimum Code Line Analysis**:
+   - Must read and analyze content from at least 10,000 lines of code
+   - For large codebases: Must analyze at least 50,000 lines
+
+3. **Project Structure Coverage**:
+   - Must document ALL top-level directories
+   - Must identify ALL main application entry points
+   - Must document ALL configuration files and their settings
+   - Must identify ALL external integrations and dependencies
+
+4. **API Documentation Coverage**:
+   - Must document ALL REST endpoints found
+   - Must document ALL database schemas/models found
+   - Must document ALL configuration options found
+   - Must document ALL authentication mechanisms found
+
+### VERIFICATION CHECKLIST
+
+Before generating final documentation:
+
+- [ ] **Codebase Statistics**: Total files, languages, lines of code documented
+- [ ] **Architecture Coverage**: All major patterns, components, and relationships identified
+- [ ] **API Coverage**: All endpoints, schemas, and interfaces documented
+- [ ] **Configuration Coverage**: All config files and settings analyzed
+- [ ] **Dependency Mapping**: All external services and libraries documented
+- [ ] **Quality Analysis**: Testing patterns, monitoring, and technical debt noted
+- [ ] **Source Citation**: Every major claim backed by specific file paths and line numbers
+- [ ] **Cross-Reference Consistency**: All internal links work and reference correct sections
+
+### ENFORCEMENT RULES
+
+**ACADEMIC HONESTY**:
+- Never fabricate components or features that don't exist
+- Always verify code claims by reading the actual source files
+- When documentation and code conflict, document what the CODE actually does
+- Use conservative estimates when exact numbers aren't available
+
+**DOCUMENTATION DEPTH**:
+- Each major section must analyze at least 5-10 actual source files
+- Include specific function names, class names, and implementation details
+- Provide concrete examples from the codebase, not generic statements
+- Must include line number references for all specific code claims
 
 ## Documentation Format Guidelines
 
@@ -691,9 +916,17 @@ Each generated documentation file should start with:
 ---
 ```
 
-### Optional: Project Evolution and Roadmap Section
+### Project Evolution and Roadmap Section
 
-**Only include this section if you can discover meaningful information from the codebase.**
+**Always include this section and generate from all available sources.**
+
+Even if no dedicated changelog/roadmap files exist, extract evolution information from:
+- Commit history and git tags
+- Code comments and TODO/FIXME notes
+- Version files and package manifests
+- Architectural changes in the codebase
+
+If no information is found, explicitly state "No formal changelog/roadmap found" and note what can be inferred from the codebase.
 
 This section helps understand:
 - Where the project came from (historical context)
