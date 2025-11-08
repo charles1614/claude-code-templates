@@ -332,11 +332,19 @@ Instead of following a hardcoded structure, create sections that match what you 
 - Reference installation scripts
 
 **Core Architecture / System Architecture**:
-- High-level architecture diagram with main system layers
-- Core components table: Component | File Location | Key Methods | Responsibility
-- Multi-process/thread architecture (if applicable)
-- Inter-process communication (ZMQ, gRPC, pipes)
-- Message formats and data classes
+- **Mermaid diagram**: High-level architecture showing main system layers and component relationships
+- **Text explanation**: 
+  - Start with 1-2 paragraphs describing the architectural style, design decisions, and rationale
+  - Use bullet points for:
+    - Key architectural principles
+    - Design patterns used
+    - Component responsibilities
+    - Communication mechanisms
+  - Follow with additional paragraphs explaining trade-offs and rationale
+- **Components table**: Component | File Location | Key Methods | Responsibility
+- **Multi-process/thread architecture** (if applicable): Use Mermaid sequence or component diagram
+- **Inter-process communication** (ZMQ, gRPC, pipes): Explain the communication patterns with diagrams
+- **Message formats and data classes**: Describe in text, reference source files, show 5-10 code examples covering different message types and data structures
 
 **Configuration System** (If complex configuration exists):
 - Document configuration parameters and structure
@@ -345,11 +353,27 @@ Instead of following a hardcoded structure, create sections that match what you 
 - Reference config classes and args
 
 **Request Processing / Pipeline**:
-- End-to-end sequence diagram
-- Data transformation pipeline: Stage | Input → Output | File | Method
-- Batching strategies (static, dynamic, continuous)
-- Scheduling policies (FCFS, priority, custom)
-- Key data classes and state transitions
+- **Mermaid sequence diagram**: End-to-end request flow with all major steps
+- **Text explanation**: 
+  - Start with 1-2 paragraphs describing how requests are processed, key decision points, and design rationale
+  - Use bullet points for:
+    - Processing stages
+    - Key decision points
+    - Error handling strategies
+    - Performance optimizations
+  - Follow with paragraphs explaining trade-offs and design choices
+- **Pipeline stages table**: Stage | Input → Output | File | Method
+- **Batching strategies**: Explain with diagrams, describe trade-offs in text (static, dynamic, continuous)
+- **Scheduling policies**: Compare policies with a table, explain selection criteria (FCFS, priority, custom)
+- **State transitions**: Use Mermaid state diagram if complex, otherwise describe in text
+- **Code examples**: Show 5-10 code snippets covering:
+  - Request parsing logic
+  - Pipeline stage implementations
+  - Batching algorithms
+  - Scheduling logic
+  - Error handling
+  - State transition handlers
+- **Avoid**: Dumping entire request handler code; instead reference source files and show focused, illustrative snippets
 
 **Memory Management / Caching**:
 - Memory hierarchy (GPU/CPU/Storage tiers)
@@ -547,6 +571,49 @@ Instead of following a hardcoded structure, create sections that match what you 
 6. **Consider audience**: Balance technical depth with readability for different stakeholders
 7. **Include context**: Always explain "why" decisions were made, not just "what" exists
 
+#### Content Guidelines for Each Section
+
+**For every section, follow this structure**:
+
+1. **Introduction (text)**: 1-2 paragraphs explaining what this component/feature is and why it exists
+   - Combine paragraph narrative with bullet points for key features/benefits
+2. **Architecture/Overview (diagram)**: Mermaid diagram showing structure, flow, or relationships
+3. **Key Concepts (text)**: 2-4 paragraphs explaining how it works, design decisions, trade-offs
+   - Use paragraph text for narrative flow and context
+   - Use bullet points for:
+     - Key design decisions
+     - Trade-offs and considerations
+     - Important implementation details
+     - Performance characteristics
+   - Alternate between paragraphs and bullet lists for readability
+4. **Implementation Details (table/text)**: Use tables for structured information, text for explanations
+5. **Code References (comprehensive)**: 5-10 brief code snippets (5-15 lines each) showing:
+   - Critical patterns and implementations
+   - Different use cases or scenarios
+   - Key functions/methods
+   - Configuration examples
+   - Error handling patterns
+   - Integration points
+6. **Source References (links)**: Point to source files with line numbers for detailed code
+
+**Content ratio per section**:
+- Text explanations: 50-60% (mix of paragraphs and bullet points)
+- Mermaid diagrams: 30-40%
+- Code snippets: 10-20% (5-10 snippets per major section)
+
+**Text formatting best practices**:
+- Start sections with 1-2 narrative paragraphs for context
+- Use bullet points for:
+  - Feature lists
+  - Design decisions
+  - Key points
+  - Quick references
+  - Comparison items
+- Follow bullet lists with paragraph text for elaboration
+- Alternate format: Paragraph → Bullets → Paragraph → Bullets for engaging reading
+
+**Remember**: Documentation should explain concepts and architecture, not duplicate the codebase
+
 ### 4. **Generate Index Structure First**
 
 **IMPORTANT: Generate the index.md file FIRST before any detailed documentation.**
@@ -613,6 +680,25 @@ Last indexed: 19 October 2025 (1d7265)
   - Include deepwiki-style formatting: tables, diagrams, source references with line numbers
   - Add navigation: Link back to index at top: `[← Back to Index](index.md)`
   - Cross-reference related sections with proper file links
+  - **Content Balance and Composition** (CRITICAL):
+    - **Use a balanced mix of three content types**:
+      1. **Mermaid Diagrams** (30-40% of visual content): Show architecture, flows, relationships
+      2. **Comprehensive Text Descriptions** (50-60% of content): Explain concepts, decisions, trade-offs
+      3. **Targeted Code Snippets** (10-20% of content): Illustrate key implementations
+    - **DO NOT overuse code snippets**: Avoid filling documentation with excessive code blocks
+    - **Prioritize explanatory text**: Focus on WHY and HOW the system works, not just WHAT the code does
+    - **Use diagrams for complexity**: When explaining complex relationships, flows, or architectures, create Mermaid diagrams instead of lengthy code listings
+    - **Code snippets should be selective**: Only include code when it directly illustrates a key concept or pattern
+    - **For each major topic, include**:
+      - A clear text explanation of the concept (combine paragraph text with bullet points)
+      - A Mermaid diagram showing relationships/flow (when applicable)
+      - 5-10 focused code snippets (5-15 lines each) showing critical implementations and patterns
+      - References to source files with line numbers for readers who want more detail
+    - **Text formatting guidelines**:
+      - Use paragraph text for narrative explanations, context, and flow
+      - Use bullet points for lists, features, key points, and quick references
+      - Combine both: Start with paragraph explanation, then use bullet points for details
+      - Example structure: 1-2 paragraphs → bullet list → 1 paragraph summary
   - **Enhanced code analysis for documentation**:
     - Read and analyze key files to extract actual implementation details
     - For major components: Read the top 50-100 lines to understand structure and patterns
@@ -884,20 +970,43 @@ graph TB
 ```
 
 ### Code Snippets
-When showing code snippets:
-- Always attribute with file path and function/class name
-- Use appropriate language syntax highlighting
-- Keep snippets focused and relevant (not entire files)
-- Add explanatory comments for complex logic
 
-Example:
+**IMPORTANT**: Use code snippets strategically to illustrate key patterns and implementations.
+
+When showing code snippets:
+- **Include 5-10 snippets per major section**: Cover different aspects, patterns, and use cases
+- **Be selective**: Only include code that directly illustrates a key concept or pattern
+- **Keep them short**: 5-15 lines is ideal, avoid snippets longer than 20 lines
+- **Prioritize explanation over code**: Write paragraph text and bullet points before/after code snippets
+- **Use diagrams for structure**: If showing code structure or relationships, use a Mermaid diagram instead
+- **Cover different scenarios**: Show various implementations, error cases, configuration examples
+- **Always attribute** with file path and function/class name
+- **Use appropriate language syntax highlighting**
+- **Keep snippets focused and relevant** (not entire files or classes)
+- **Add explanatory comments** for complex logic
+- **Provide context**: Explain what the code does and WHY it's implemented this way
+
+Example structure for a section with code snippets:
+1. Paragraph explaining the concept
+2. Bullet points listing key aspects
+3. Code snippet #1 (main pattern)
+4. Paragraph explaining snippet #1
+5. Code snippet #2 (alternative approach)
+6. Bullet points comparing approaches
+7. Code snippet #3 (error handling)
+8. Paragraph summarizing
+
+Example of good code snippet usage:
 ```python
 # From: path/to/scheduler.py:123-135
 class Scheduler:
     def get_next_batch(self):
-        # Select requests for next batch
+        # Select requests for next batch using configured policy
         return self.policy.select(self.queue)
 ```
+
+**Bad practice**: Dumping large code blocks without explanation
+**Good practice**: 5-10 brief code snippets + comprehensive text (paragraphs + bullets) + Mermaid diagram for architecture
 
 ### Cross-References
 - Link to other documentation sections: `[Section Name](filename.md)`
@@ -1189,28 +1298,36 @@ docs/myproject/
 11. **Visual Aids**: Include diagrams for complex relationships and flows
 12. **Examples**: Provide code examples and usage patterns where helpful
 
+### Content Balance and Composition
+13. **Prioritize Explanation Over Code**: Documentation should explain concepts, not duplicate source code
+14. **Use Mermaid Diagrams Liberally**: For architecture, flows, and relationships - diagrams are more valuable than code
+15. **Code Snippets Strategy**: Include 5-10 code snippets (5-15 lines each) per major section, covering different aspects and patterns
+16. **Write Comprehensive Text**: Combine paragraph narrative (2-4 paragraphs) with bullet points for key details
+17. **Text Formatting**: Alternate between paragraphs and bullet lists for engaging, scannable content
+18. **Balance the Three Elements**: 50-60% text (paragraphs + bullets), 30-40% diagrams, 10-20% code snippets
+
 ### Organization
-13. **Logical Grouping**: Group related concepts into cohesive sections
-14. **Clear Hierarchy**: Use parent/child sections to show relationships
-15. **Easy Navigation**: Provide clear table of contents and cross-references
-16. **Consistent Naming**: Use consistent terminology throughout
+19. **Logical Grouping**: Group related concepts into cohesive sections
+20. **Clear Hierarchy**: Use parent/child sections to show relationships
+21. **Easy Navigation**: Provide clear table of contents and cross-references
+22. **Consistent Naming**: Use consistent terminology throughout
 
 ### Maintenance
-17. **Version Tracking**: Include generation timestamp and commit hash
-18. **Living Documentation**: Design for easy updates as code evolves
-19. **Validation**: Verify all links, diagrams, and references work
-20. **Metadata**: Document assumptions and scope limitations
+23. **Version Tracking**: Include generation timestamp and commit hash
+24. **Living Documentation**: Design for easy updates as code evolves
+25. **Validation**: Verify all links, diagrams, and references work
+26. **Metadata**: Document assumptions and scope limitations
 
 ### Architectural Focus
-21. **System Context**: Start with high-level view before diving into details
-22. **Component Boundaries**: Clearly define responsibilities and interfaces
-23. **Data Flow**: Show how data moves through the system
-24. **Quality Attributes**: Document performance, security, scalability considerations
-25. **Evolution**: Note areas of technical debt and future improvements
+27. **System Context**: Start with high-level view before diving into details
+28. **Component Boundaries**: Clearly define responsibilities and interfaces
+29. **Data Flow**: Show how data moves through the system
+30. **Quality Attributes**: Document performance, security, scalability considerations
+31. **Evolution**: Note areas of technical debt and future improvements
 
 ### Stakeholder Considerations
-26. **Multiple Audiences**: Balance needs of developers, architects, and operators
-27. **Onboarding Value**: Make it useful for new team members
-28. **Decision Support**: Help readers understand implications of changes
-29. **Reference Material**: Organize for both learning and quick lookup
+32. **Multiple Audiences**: Balance needs of developers, architects, and operators
+33. **Onboarding Value**: Make it useful for new team members
+34. **Decision Support**: Help readers understand implications of changes
+35. **Reference Material**: Organize for both learning and quick lookup
 
