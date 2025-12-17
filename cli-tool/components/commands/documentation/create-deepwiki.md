@@ -146,6 +146,32 @@ Generate comprehensive deepwiki-style architecture documentation with codebase-f
     - Monitoring/logging: `grep -r -i "log\|monitor\|metric\|track\|observ" --include="*.py" --include="*.js" --include="*.ts" | head -15`
     - Performance: `grep -r -i "performance\|benchmark\|profile\|optimize\|cache\|lazy" --include="*.py" --include="*.js" --include="*.ts" | head -15`
 
+- **Visual Assets and Documentation Images**
+  - **Image file discovery**:
+    ```bash
+    echo "=== IMAGE AND VISUAL ASSETS DISCOVERY ==="
+
+    # Find all image files
+    find . -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.gif" -o -iname "*.svg" -o -iname "*.webp" \) | grep -v "node_modules\|\.git\|vendor\|target\|build\|dist" | head -50
+
+    # Find images in documentation directories
+    find . -path "*/docs/*" -o -path "*/documentation/*" -o -path "*/images/*" -o -path "*/assets/*" -o -path "*/img/*" | grep -E "\.(png|jpg|jpeg|gif|svg|webp)$" | head -30
+
+    # Find architecture diagrams and design assets
+    find . -type f \( -iname "*architecture*" -o -iname "*diagram*" -o -iname "*design*" -o -iname "*flow*" -o -iname "*chart*" \) | grep -E "\.(png|jpg|jpeg|svg|webp)$" | head -20
+    ```
+  - **Image categorization**:
+    - **Architecture diagrams**: System design, component diagrams, flowcharts
+    - **Screenshots**: UI examples, demo screenshots, feature illustrations
+    - **Logos and branding**: Project logo, badges, icons
+    - **Documentation assets**: Explanatory images, step-by-step guides
+    - **Data visualizations**: Charts, graphs, performance plots
+  - **Image assessment**:
+    - Relevance to architecture documentation
+    - Quality and resolution
+    - Whether images are already referenced in existing docs
+    - Whether images are hosted externally (GitHub, CDN) or local
+
 - **Existing Documentation Review**
   - Read existing documentation (README.md, docs/, wikis) for context and high-level understanding
   - Extract useful descriptions, design rationale, and historical context
@@ -666,13 +692,19 @@ Last indexed: 19 October 2025 (1d7265)
   - Each **first-level section** from the index becomes a separate markdown file
   - Subsections are included within their parent section file
   - Place all files in `docs/<project-name>/` directory
-  - Name files descriptively using kebab-case (e.g., `system-architecture.md`, `model-execution.md`)
+  - Name files with numbered prefixes for clear ordering, followed by descriptive names in kebab-case
 
-**File Naming Pattern**:
-- Index section "System Architecture" → `system-architecture.md`
-- Index section "Model Execution" → `model-execution.md`
-- Index section "Programming Interfaces" → `programming-interfaces.md`
-- Keep names concise but clear
+**File Naming Pattern with Numbered Prefixes**:
+- Use numbered prefixes (zero-padded) for clear ordering and navigation
+- Numbers should be 01, 02, ... 10, 11, etc.
+- Keep names concise but descriptive after the prefix
+- Index section "Overview" → `01-overview.md`
+- Index section "System Architecture" → `02-system-architecture.md`
+- Index section "Model Execution" → `03-model-execution.md`
+- Index section "Programming Interfaces" → `04-programming-interfaces.md`
+- Index section "Testing" → `05-testing.md`
+- Index section "Project Evolution" → `06-evolution.md`
+- **Benefits**: Easy to reorder, clear reading sequence, better file explorer organization
 
 - **Generate Each Documentation File**
   - Create content for each section planned in Task 2 and listed in index.md
@@ -708,10 +740,94 @@ Last indexed: 19 October 2025 (1d7265)
     - For test files: Identify testing patterns and coverage areas
     - For build configs: Document build processes, dependencies, and deployment setups
 
+  - **Image Integration Strategy**:
+
+    **Handling project images in documentation:**
+
+    **Option 1: Copy to docs/img/ directory (Recommended for local images)**
+    - Create `docs/<project-name>/img/` directory
+    - Copy relevant images from the project:
+      ```bash
+      mkdir -p "docs/<project-name>/img"
+      # Copy architecture diagrams
+      find . -type f \( -iname "*architecture*.png" -o -iname "*diagram*.png" -o -iname "*architecture*.svg" -o -iname "*diagram*.svg" \) | grep -v "node_modules\|\.git\|vendor\|target" | head -10 | xargs -I {} cp {} "docs/<project-name>/img/"
+      # Copy other relevant images
+      find . -type f \( -iname "*flow*.png" -o -iname "*design*.png" -o -iname "*chart*.png" \) | grep -v "node_modules\|\.git\|vendor" | head -5 | xargs -I {} cp {} "docs/<project-name>/img/"
+      ```
+    - Reference in markdown using relative paths:
+      ```markdown
+      ![System Architecture](img/architecture-diagram.png)
+      ![Component Flow](img/component-flow.svg)
+      ```
+
+    **Option 2: Reference via web links (For images already hosted)**
+    - If images are in GitHub repo, use GitHub raw URLs:
+      ```markdown
+      ![Architecture](https://raw.githubusercontent.com/user/repo/main/docs/images/architecture.png)
+      ```
+    - If images are in CDN or documentation site:
+      ```markdown
+      ![Dashboard](https://docs.example.com/images/dashboard-screenshot.png)
+      ```
+
+    **Best Practices:**
+    - **Prefer local copies** for critical architecture images (ensures availability)
+    - **Use web links** for large images, GIFs, or externally maintained assets
+    - **Alt text**: Always provide descriptive alt text for accessibility
+    - **Image captions**: Add captions below images for context using markdown italics
+    - **Optimize images**: Mention if large images should be compressed
+    - **SVG preference**: Prefer SVG for diagrams (scalable, smaller size)
+    - **Naming convention**: Use descriptive names with prefixes (e.g., `arch-system-overview.png`, `flow-request-processing.svg`)
+
+    **Integration Guidelines:**
+    1. Review discovered images from Task 1 analysis
+    2. Identify images relevant to architecture documentation:
+       - System architecture diagrams
+       - Data flow visualizations
+       - Component relationships
+       - Deployment diagrams
+       - UI/UX screenshots (if relevant to architecture)
+    3. For each relevant image:
+       - Copy to `docs/<project-name>/img/` if local
+       - Or use web link if hosted externally
+       - Reference in appropriate documentation section
+       - Add descriptive caption and alt text
+    4. Update documentation sections to include images where they add value
+    5. **Balance**: Use images to complement Mermaid diagrams, not replace them
+       - Mermaid diagrams: For architecture flows you're documenting fresh
+       - Existing images: For pre-existing architecture diagrams from the project
+       - Screenshots: For UI examples and real-world visuals
+
+    **Example Integration:**
+    ```markdown
+    ## System Architecture
+
+    The system follows a multi-tier architecture with clear separation of concerns.
+
+    ![Existing Architecture Diagram](img/system-architecture.png)
+    *Figure 1: High-level system architecture (from project documentation)*
+
+    ```mermaid
+    graph TB
+        A[Client] --> B[API Gateway]
+        B --> C[Service Layer]
+        C --> D[Data Layer]
+    ```
+    *Figure 2: Detailed component interaction flow*
+
+    The architecture consists of three main layers...
+    ```
+
 - **Ensure Documentation Quality**
   - All source file references must be accurate with correct paths
   - Include line numbers for specific code references (`:123-456`)
-  - All Mermaid diagrams should be syntactically correct
+  - **All Mermaid diagrams must be syntactically correct**:
+    - Verify node IDs have no spaces
+    - Check all brackets are closed properly
+    - Ensure arrow syntax is correct (`-->`, `-.->`, `==>`)
+    - Test subgraph syntax if used
+    - Validate that special characters in labels are quoted
+    - Confirm style definitions match class applications
   - Tables must be properly formatted with aligned columns
   - Cross-references must use correct file names/anchors
   - Verify all links work (especially links to other documentation files)
@@ -920,6 +1036,10 @@ Before generating final documentation:
 - [ ] **Configuration Coverage**: All config files and settings analyzed
 - [ ] **Dependency Mapping**: All external services and libraries documented
 - [ ] **Quality Analysis**: Testing patterns, monitoring, and technical debt noted
+- [ ] **Image Integration**: All relevant project images discovered and properly referenced
+- [ ] **Image Paths**: All image links work and point to correct locations (relative paths or web URLs)
+- [ ] **Image Quality**: Images are clear, relevant, and add value to documentation
+- [ ] **Mermaid Diagrams**: All Mermaid diagrams are syntactically correct (no spaces in node IDs, proper brackets, correct arrow syntax, valid subgraph structure)
 - [ ] **Source Citation**: Every major claim backed by specific file paths and line numbers
 - [ ] **Cross-Reference Consistency**: All internal links work and reference correct sections
 
@@ -953,13 +1073,36 @@ Always use this format for feature/component tables:
 ```
 
 ### Mermaid Diagrams
-Use Mermaid for all architectural diagrams:
-- `graph TB` or `graph LR` for component relationships
-- `sequenceDiagram` for request flows
-- `flowchart` for decision trees and pipelines
-- Keep diagrams focused and not too complex (max 10-15 nodes)
 
-Example:
+**Use Mermaid for all architectural diagrams with proper syntax:**
+
+**Diagram Types:**
+- `graph TB` (top-down) or `graph LR` (left-right) for component relationships
+- `sequenceDiagram` for request flows and interactions
+- `flowchart` for decision trees and pipelines
+- `stateDiagram-v2` for state machines
+- Keep diagrams focused and not too complex (max 15-20 nodes)
+
+**Grammar and Syntax Rules (CRITICAL):**
+1. **Node IDs**: Use alphanumeric IDs without spaces (e.g., `NodeA`, `Node1`, `Init_Probe`)
+2. **Labels**: Use square brackets for labels: `A[Label Text]`
+3. **Arrows**:
+   - Solid: `-->` (with label: `-->|label text|`)
+   - Dotted: `-.->` (with label: `-.->|label text|`)
+   - Thick: `==>` (with label: `==>|label text|`)
+4. **Subgraphs**: Use proper syntax:
+   ```
+   subgraph SubgraphName [Display Title]
+       direction TB
+       Node1 --> Node2
+   end
+   ```
+5. **Comments**: Use `%%` for comments
+6. **Styling**: Define styles with `classDef` and apply with `:::className`
+7. **Special Characters**: Avoid parentheses `()` in node IDs; use them only in labels
+8. **Quotes**: Use for labels with special characters: `A["Text with: special, chars"]`
+
+**Basic Example:**
 ```mermaid
 graph TB
     A[Client Request] --> B[HTTP Server]
@@ -968,6 +1111,65 @@ graph TB
     D --> E[Model Worker]
     E --> F[Response]
 ```
+
+**Advanced Example with Styling and Subgraphs:**
+```mermaid
+graph TB
+    %% Style Definitions
+    classDef input fill:#e1f5ff,stroke:#0288d1,stroke-width:2px
+    classDef process fill:#fff9c4,stroke:#f57f17,stroke-width:2px
+    classDef output fill:#c8e6c9,stroke:#388e3c,stroke-width:2px
+    classDef cache fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+
+    %% Main Flow
+    Input(User Request):::input
+    Input --> Gateway[API Gateway]:::process
+
+    subgraph Processing [Request Processing]
+        direction TB
+        Gateway --> Auth[Authentication]:::process
+        Auth --> Valid[Validation]:::process
+        Valid --> Cache{Cache Hit?}:::cache
+        Cache -->|Yes| CacheResp[Cached Response]:::output
+        Cache -->|No| Process[Process Request]:::process
+        Process --> DB[(Database)]:::process
+        DB --> Format[Format Response]:::process
+    end
+
+    Format --> Output(Response):::output
+    CacheResp --> Output
+```
+
+**Sequence Diagram Example:**
+```mermaid
+sequenceDiagram
+    participant Client
+    participant API
+    participant Cache
+    participant DB
+
+    Client->>API: Request
+    API->>Cache: Check Cache
+    alt Cache Hit
+        Cache-->>API: Return Data
+    else Cache Miss
+        API->>DB: Query
+        DB-->>API: Result
+        API->>Cache: Update Cache
+    end
+    API-->>Client: Response
+```
+
+**Common Pitfalls to Avoid:**
+- ❌ Don't use spaces in node IDs: `Node One` (wrong) → `NodeOne` (correct)
+- ❌ Don't forget closing brackets: `A[Label` (wrong) → `A[Label]` (correct)
+- ❌ Don't mix arrow types inconsistently
+- ❌ Don't create cycles without clear purpose
+- ❌ Don't use reserved keywords as IDs (end, start, etc.)
+- ✅ Always test complex diagrams in a Mermaid preview tool
+- ✅ Use meaningful node IDs that match the architecture
+- ✅ Add comments to explain complex relationships
+- ✅ Group related nodes in subgraphs for clarity
 
 ### Code Snippets
 
@@ -1196,76 +1398,91 @@ Where `<project-name>` is extracted from:
 ```
 docs/sglang/
 ├── index.md                          # Master TOC (GENERATE FIRST)
-├── overview.md                       # What is SGLang?
-├── installation.md                   # Installation and setup
-├── system-architecture.md            # Multi-process architecture, IPC
-├── request-processing.md             # Request scheduling and batching
-├── memory-management.md              # HiCache and memory pools
-├── distributed-execution.md          # Parallelism strategies
-├── model-execution.md                # Model loading, attention, quantization
-├── programming-interfaces.md         # Python API, HTTP server, CLI
-├── kernel-library.md                 # Custom CUDA/ROCm kernels
-├── deployment.md                     # Docker and server configuration
-├── testing.md                        # Testing and benchmarking
-└── roadmap.md                        # [OPTIONAL] Project evolution and future plans
+├── img/                              # Images directory
+│   ├── architecture-diagram.png      # Copied from project
+│   ├── request-flow.svg              # Copied architecture visuals
+│   └── performance-chart.png         # Performance visualizations
+├── 01-overview.md                    # What is SGLang?
+├── 02-installation.md                # Installation and setup
+├── 03-system-architecture.md         # Multi-process architecture, IPC
+├── 04-request-processing.md          # Request scheduling and batching
+├── 05-memory-management.md           # HiCache and memory pools
+├── 06-distributed-execution.md       # Parallelism strategies
+├── 07-model-execution.md             # Model loading, attention, quantization
+├── 08-programming-interfaces.md      # Python API, HTTP server, CLI
+├── 09-kernel-library.md              # Custom CUDA/ROCm kernels
+├── 10-deployment.md                  # Docker and server configuration
+├── 11-testing.md                     # Testing and benchmarking
+└── 12-roadmap.md                     # Project evolution and future plans
 ```
 
 **Example 2 - Communication Library** (deepep):
 ```
 docs/deepep/
 ├── index.md                          # Master TOC (GENERATE FIRST)
-├── overview.md                       # What is DeepEP?
-├── getting-started.md                # Installation and build
-├── architecture.md                   # System overview, communication model
-├── communication-kernels.md          # Intranode and internode kernels
-├── runtime-system.md                 # C++ runtime and buffer management
-├── hardware-integration.md           # NVSHMEM, IBGDA
-├── python-api.md                     # Python bindings
-├── testing.md                        # Test framework
-└── performance-analysis.md           # Performance tuning
+├── img/                              # Images directory
+│   ├── communication-model.svg       # Architecture visuals
+│   └── buffer-system.png             # System diagrams
+├── 01-overview.md                    # What is DeepEP?
+├── 02-getting-started.md             # Installation and build
+├── 03-architecture.md                # System overview, communication model
+├── 04-communication-kernels.md       # Intranode and internode kernels
+├── 05-runtime-system.md              # C++ runtime and buffer management
+├── 06-hardware-integration.md        # NVSHMEM, IBGDA
+├── 07-python-api.md                  # Python bindings
+├── 08-testing.md                     # Test framework
+└── 09-performance-analysis.md        # Performance tuning
 ```
 
 **Example 3 - Web API Service** (myapi):
 ```
 docs/myapi/
 ├── index.md                          # Master TOC (GENERATE FIRST)
-├── overview.md                       # Service overview
-├── getting-started.md                # Setup and installation
-├── system-architecture.md            # High-level design and data flow
-├── api-design.md                     # REST endpoints, authentication
-├── data-layer.md                     # Database schema, ORM models
-├── business-logic.md                 # Service layer, domain models
-├── infrastructure.md                 # Deployment, caching, message queue
-├── security.md                       # Authentication & authorization
-├── monitoring.md                     # Observability and logging
-├── testing.md                        # Testing strategy
-└── evolution.md                      # [OPTIONAL] Version history and future plans
+├── img/                              # Images directory
+│   ├── api-flow.png                  # Request flow diagrams
+│   ├── database-schema.svg           # DB schema visuals
+│   └── deployment-diagram.png        # Infrastructure diagrams
+├── 01-overview.md                    # Service overview
+├── 02-getting-started.md             # Setup and installation
+├── 03-system-architecture.md         # High-level design and data flow
+├── 04-api-design.md                  # REST endpoints, authentication
+├── 05-data-layer.md                  # Database schema, ORM models
+├── 06-business-logic.md              # Service layer, domain models
+├── 07-infrastructure.md              # Deployment, caching, message queue
+├── 08-security.md                    # Authentication & authorization
+├── 09-monitoring.md                  # Observability and logging
+├── 10-testing.md                     # Testing strategy
+└── 11-evolution.md                   # Version history and future plans
 ```
 
 **Example 4 - CLI Tool** (mybuild):
 ```
 docs/mybuild/
 ├── index.md                          # Master TOC (GENERATE FIRST)
-├── overview.md                       # Tool purpose
-├── installation.md                   # Installation
-├── architecture.md                   # Core design
-├── command-system.md                 # Command processing and registry
-├── plugin-system.md                  # Extension system
-├── configuration.md                  # Config management
-└── testing.md                        # Testing framework
+├── img/                              # Images directory (if any visuals)
+├── 01-overview.md                    # Tool purpose
+├── 02-installation.md                # Installation
+├── 03-architecture.md                # Core design
+├── 04-command-system.md              # Command processing and registry
+├── 05-plugin-system.md               # Extension system
+├── 06-configuration.md               # Config management
+└── 07-testing.md                     # Testing framework
 ```
 
 **Example 5 - Smaller Project** (optional single file):
 ```
 docs/myproject/
+├── img/                              # Images directory
 └── index.md                          # All sections in one file
 ```
 
 **Key Principles:**
 - **Flexible**: Structure adapts to what's actually in the codebase
-- **Descriptive names**: Use clear file names (not just numbers)
+- **Numbered prefixes**: Use zero-padded numbers (01-, 02-, etc.) for clear ordering and navigation
+- **Descriptive names**: Use clear file names with kebab-case after the number prefix
 - **Hierarchical**: Group related topics (can use subdirectories for very large projects)
 - **No forced structure**: Only create files for sections that are needed
+- **Image directory**: Always include `img/` subdirectory for visual assets
 
 ## Documentation Workflow
 
